@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </head>
+  <body>
+        <div class="main">
+        <p id="choose">How do you want to play?</p>
+        <p id="title">Tic Tac Toe</p>
+    <div class="choice">
+
+      <a id="turnX">Turn X</a>
+      <a id="turnO">Turn O</a>
+      <a id="reset">Reset</a>
+    </div>
+    <table>
+    <tr>
+      <td><a class=" tic" id="0">#</a></td>
+      <td><a class=" tic" id="1">#</a></td>
+      <td><a class=" tic" id="2">#</a></td>
+     </tr>
+      <tr>
+      <td><a class=" tic" id="3">#</a></td>
+      <td><a class=" tic" id="4">#</a></td>
+      <td><a class=" tic" id="5">#</a></td>
+     </tr>
+      <tr>
+      <td><a class=" tic" id="6">#</a></td>
+      <td><a class=" tic" id="7">#</a></td>
+      <td><a class=" tic" id="8">#</a></td>
+     </tr>
+    </table>
+      <h1 id="scoreboardX">Player X: 0</h1>
+      <h1 id="scoreboardO">Player O: 0 </h1>
+      <p id="sign">by Jesús Toledo</p>
+    </div>
+    <script type="text/javascript">
+    $(document).ready(function(){
+
+      $("table,h1,#reset,#title,#sign").hide()
+
+      var turn="X";
+
+      var turns = ["#", "#", "#", "#", "#", "#", "#", "#", "#"];
+
+      var computersTurn="O";
+      // keeps track if it is the compter's turn
+      var gameOn = false;
+      // keeps track of computers turn so no loop
+      var count=0;
+
+      var scoreboardX=0;
+      var scoreboardO=0;
+
+      $("#turnX").click(function(){
+
+        $("#choose,#turnX, #turnO").fadeOut(1000);
+        $("table,h1,#reset,#title,#sign").delay(1000).fadeIn(1000);
+        turn="O";
+        computersTurn="X";
+        $("#turnX").css("background-color","gray");
+        $("#turnO").css("background-color", "orange")
+        reset();
+      });
+
+        $("#turnO").click(function(){
+         $("#choose,#turnX, #turnO").fadeOut(1000);
+        $("table,h1,#reset,#title,#sign").delay(1000).fadeIn(1000);
+
+        turn="X";
+        computersTurn="O";
+        $("#turnO").css("background-color","gray");
+        $("#turnX").css("background-color", "orange");
+          reset();
+      });
+
+      function computerTurn(){
+        //Used to break the while loop
+        var taken = false;
+        while(taken===false && count!==5) {
+
+          //Generate computer's random turn
+          var computersMove = (Math.random()*10).toFixed();
+          //console.log("computersMove="+computersMove);
+          var move = $("#"+computersMove).text();
+          //console.log(move);
+          if(move==="#") {
+            $("#"+computersMove).text(computersTurn);
+            taken = true;
+            turns[computersMove]=computersTurn;
+            //console.log(turns);
+            //console.log("computersTurn="+ computersTurn);
+
+          }
+        }
+      };
+
+      function playerTurn(turn, id) {
+
+        var spotTaken=$('#'+id).text();
+        if(spotTaken==="#") {
+          count++;
+
+          console.log(turns);
+          turns[id]=turn;
+         // console.log("turn= "+turn);
+         // console.log("id= "+id);
+          $("#"+id).text(turn);
+          winCondition(turns,turn);
+          if(gameOn===false){
+            computerTurn();
+             winCondition(turns, computersTurn);
+
+
+          }
+        }
+      };
+
+      function winCondition(a,b) {
+
+       if(a[0]===b && a[1]===b && a[2]===b) {
+         gameOn=true;
+         reset();
+         alert("Player " + b + " has won");
+         console.log("this is b: " +b);
+         if(b=="X") {
+         scoreboardX++;
+         $("#scoreboard" + b).html("Player " + b + ": " + scoreboardX);
+         }
+         else if(b=="O") {
+         scoreboardO++;
+         $("#scoreboard" + b).html("Player " + b + ": " + scoreboardO);
+         }
+        //console.log(scoreboardX);
+
+
+        }
+        else if(a[3]===b && a[4]===b && a[5]===b) {
+           gameOn=true;
+
+         $("#scoreboardX").html("Player X: " + scoreboardX);
+         reset();
+         alert("Player " + b + " has won");
+           if(b=="X") {
+         scoreboardX++;
+         $("#scoreboard" + b).html("Player " + b + ": " + scoreboardX);
+         }
+         else if(b=="O") {
+         scoreboardO++;
+         $("#scoreboard" + b).html("Player " + b + ": " + scoreboardO);
+         }
+        }
+        else if(a[6]===b && a[7]===b && a[8]===b) {
+           gameOn=true;
+
+
+         reset();
+        alert("Player " + b + " has won");
+           if(b=="X") {
+         scoreboardX++;
+         $("#scoreboard" + b).html("Player " + b + ": " + scoreboardX);
+         }
+         else if(b=="O") {
+         scoreboardO++;
+         $("#scoreboard" + b).html("Player " + b + ": " + scoreboardO);
+         }
+        }
+
+        else if(a[0]===b && a[3]===b && a[6]===b) {
+         gameOn=true;
+         reset();
+        alert("Player " + b + " has won");
+           if(b=="X") {
+         scoreboardX++;
+         $("#scoreboard" + b).html("Player " + b + ": " + scoreboardX);
+         }
+         else if(b=="O") {
+         scoreboardO++;
+         $("#scoreboard" + b).html("Player " + b + ": " + scoreboardO);
+         }
+
+        }
+        else if(a[1]===b && a[4]===b && a[7]===b) {
+           gameOn=true;
+
+         reset();
+         alert("Player " + b + " has won");
+           if(b=="X") {
+         scoreboardX++;
+         $("#scoreboard" + b).html("Player " + b + ": " + scoreboardX);
+         }
+         else if(b=="O") {
+         scoreboardO++;
+         $("#scoreboard" + b).html("Player " + b + ": " + scoreboardO);
+         }
+        }
+        else if(a[2]===b && a[5]===b && a[8]===b) {
+           gameOn=true;
+
+         reset();
+         alert("Player " + b + " has won");
+           if(b=="X") {
+         scoreboardX++;
+         $("#scoreboard" + b).html("Player " + b + ": " + scoreboardX);
+         }
+         else if(b=="O") {
+         scoreboardO++;
+         $("#scoreboard" + b).html("Player " + b + ": " + scoreboardO);
+         }
+        }
+         else if(a[0]===b && a[4]===b && a[8]===b) {
+           gameOn=true;
+
+         reset();
+         alert("Player " + b + " has won");
+            if(b=="X") {
+         scoreboardX++;
+         $("#scoreboard" + b).html("Player " + b + ": " + scoreboardX);
+         }
+         else if(b=="O") {
+         scoreboardO++;
+         $("#scoreboard" + b).html("Player " + b + ": " + scoreboardO);
+         }
+        }
+        else if(a[2]===b && a[4]===b && a[6]===b) {
+           gameOn=true;
+
+         reset();
+         alert("Player " + b + " has won");
+           if(b=="X") {
+         scoreboardX++;
+         $("#scoreboard" + b).html("Player " + b + ": " + scoreboardX);
+         }
+         else if(b=="O") {
+         scoreboardO++;
+         $("#scoreboard" + b).html("Player " + b + ": " + scoreboardO);
+         }
+
+        }
+        else if (turns[0]!=="#" && turns[1]!=="#" && turns[2]!=="#" && turns[3]!=="#" && turns[4]!=="#" && turns[5]!=="#" &&turns[6]!=="#" && turns[7]!=="#" &&turns[8]!=="#") {
+           gameOn=true;
+          alert("It's a draw!")
+
+         reset();
+        }
+
+      };
+
+
+
+      $(".tic").click(function(){
+
+        console.log("turn="+turn);
+
+        var slot= $(this).attr("id");
+
+
+        playerTurn(turn,slot);
+
+      });
+
+      function reset (){
+      gameOn = false;
+
+        $(".tic").html("#");
+      turns = ["#", "#", "#", "#", "#", "#", "#", "#", "#"];
+
+      count=0;
+      countTotal=0;
+
+
+      };
+
+      $("#reset").click(function(){
+      $("table,h1,#reset,#title, #sign").fadeOut(1000);
+      $("#choose,#turnX,#turnO").delay(1000).fadeIn(1000);
+      scoreboardX=0;
+      scoreboardO=0;
+      $("#scoreboardX").html("Player X: 0");
+      $("#scoreboardO").html("Player O: 0");
+      });
+      });
+    </script>
+  </body>
+</html>
