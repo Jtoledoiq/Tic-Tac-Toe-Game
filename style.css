@@ -1,0 +1,51 @@
+body {
+  background-color: rgb(0,0,0,0.8);
+
+}
+p {
+  font-size: 40px;
+  text-align: center;
+  color: white;
+
+}
+#sign {
+  font-size:15px;
+  color:white;
+}
+.main {
+  position: absolute;
+  top: 20%;
+  left: 30%;
+  top:20%;
+ }
+table {
+  background-color:DarkGoldenRod ;
+}
+td {
+  text-align:center;
+  color: black;
+  font-size:50px;
+  width:150px;
+  height:150px;
+  border:solid;
+  border-color: DarkCyan ;
+  border-width: 20px;
+  border-radius:10%;
+  cursor:pointer;
+}
+#turnX, #turnO, #reset{
+  font-size:30px;
+  color:black;
+  text-align:center;
+  background-color:Orange;
+  width:150px;
+  height:150px;
+  padding:5px 10px 5px 10px;
+  cursor:pointer;
+  margin-top:10px;
+}
+.choice {
+    text-align:center;
+  conten-align:center;
+  margin:0px 0px 50px 0px;
+}
